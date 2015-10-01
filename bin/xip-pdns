@@ -106,7 +106,7 @@ resolve_ns_subdomain() {
 
 resolve_ip_subdomain() {
   [[ "$SUBDOMAIN" =~ $IP_SUBDOMAIN_PATTERN ]] || true
-  echo "${BASH_REMATCH[2]}"
+  echo "${BASH_REMATCH[1]}"
 }
 
 resolve_base36_subdomain() {
