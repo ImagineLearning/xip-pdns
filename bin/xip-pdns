@@ -9,7 +9,7 @@ fi
 #
 # Configuration Default Settings (if not yet provided)
 #
-[ -z "$XIP_DOMAIN" ] && XIP_DOMAIN="imaginelearningmedia.net"
+[ -z "$XIP_DOMAIN" ] && XIP_DOMAIN="default.net"
 [ -z "$XIP_ROOT_ADDRESSES" ] && XIP_ROOT_ADDRESSES=( "127.0.0.1" )
 [ -z "$XIP_NS_ADDRESSES" ] && XIP_NS_ADDRESSES=( "127.0.0.1" )
 [ -z "$XIP_TIMESTAMP" ] && XIP_TIMESTAMP="0"
