@@ -1,0 +1,32 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: xip-pdns-deployment
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: xip-pdns
+    spec:
+      containers:
+      - name: xip-pdns
+        image: ilprovo/xip-pdns:v0.01
+        ports:
+        - containerPort: 53
+          protocol: UDP
+        env:
+        - name: XIP_DOMAIN
+          value: "imaginelearningmedia.net"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: xip-pdns-svc
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 53
+    protocol: UDP
+  selector:
+    app: xip-pdns
