@@ -1,13 +1,13 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: xip-pdns-deployment
+  name: xip-pdns-cn-deployment
 spec:
   replicas: 2
   template:
     metadata:
       labels:
-        app: xip-pdns
+        app: xip-pdns-cn
     spec:
       affinity:
         podAntiAffinity:
@@ -19,10 +19,10 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - xip-pdns
+                  - xip-pdns-cn
               topologyKey: "kubernetes.io/hostname"
       containers:
-      - name: xip-pdns
+      - name: xip-pdns-cn
         image: ilprovo/xip-pdns:v0.01
         ports:
         - containerPort: 53
@@ -41,11 +41,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: xip-pdns-svc
+  name: xip-pdns-cn-svc
 spec:
   type: LoadBalancer
   ports:
   - port: 53
     protocol: UDP
   selector:
-    app: xip-pdns
+    app: xip-pdns-cn
