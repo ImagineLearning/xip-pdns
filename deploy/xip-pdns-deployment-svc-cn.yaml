@@ -1,0 +1,51 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: xip-pdns-deployment
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: xip-pdns
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - xip-pdns
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+      - name: xip-pdns
+        image: ilprovo/xip-pdns:v0.01
+        ports:
+        - containerPort: 53
+          protocol: UDP
+        env:
+        - name: XIP_DOMAIN
+          value: "imaginelearningmedia.cn"
+        resources:
+          limits:
+            cpu: 500m
+            memory: 500Mi
+          requests:
+            cpu: 150m
+            memory: 150Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: xip-pdns-svc
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 53
+    protocol: UDP
+  selector:
+    app: xip-pdns
