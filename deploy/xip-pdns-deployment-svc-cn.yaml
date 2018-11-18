@@ -49,3 +49,15 @@ spec:
     protocol: UDP
   selector:
     app: xip-pdns-cn
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: xip-pdns2-cn-svc
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 53
+    protocol: UDP
+  selector:
+    app: xip-pdns-cn
